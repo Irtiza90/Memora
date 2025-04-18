@@ -12,6 +12,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [currentStep, setCurrentStep] = useState('form') // 'form', 'questions'
+  const [currentCardIndex, setCurrentCardIndex] = useState(0)
 
   useEffect(() => {
     // Set the default theme on initial load
@@ -26,6 +27,7 @@ function App() {
       const questions = await generateFlashcards(formData)
       setQuestions(questions)
       setCurrentStep('questions')
+      setCurrentCardIndex(0) // Reset to first card
     } catch (error) {
       setError(error.message || 'An error occurred while generating flashcards.')
     } finally {
@@ -46,6 +48,19 @@ function App() {
     setQuestions([])
     setCurrentStep('form')
     setError(null)
+    setCurrentCardIndex(0)
+  }
+
+  const goToNextCard = () => {
+    if (currentCardIndex < questions.length - 1) {
+      setCurrentCardIndex(currentCardIndex + 1)
+    }
+  }
+
+  const goToPrevCard = () => {
+    if (currentCardIndex > 0) {
+      setCurrentCardIndex(currentCardIndex - 1)
+    }
   }
 
   return (
@@ -56,7 +71,7 @@ function App() {
       <Navbar />
       
       <main className="container relative z-10 flex-grow px-4 py-6 mx-auto mb-8">
-        <h1 className="mb-10 text-4xl font-bold text-center md:text-5xl text-gradient">Learn with AI-Powered Flashcards</h1>
+        <h1 className="mb-10 text-4xl font-bold text-center md:text-5xl text-white">Learn with AI-Powered Flashcards</h1>
         
         {error && <ErrorAlert message={error} onDismiss={() => setError(null)} />}
         
@@ -69,27 +84,65 @@ function App() {
         {currentStep === 'questions' && !isLoading && (
           <div className="max-w-3xl mx-auto fade-in">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-gradient">Your Flashcards</h2>
-              <button 
-                onClick={handleRestart} 
-                className="px-4 rounded-lg btn btn-outline btn-sm btn-glow"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                </svg>
-                Start Over
-              </button>
+              <h2 className="text-2xl font-bold text-white">Your Flashcards</h2>
+              <div className="flex gap-2">
+                <button 
+                  onClick={handleRestart} 
+                  className="px-4 rounded-lg btn btn-outline btn-sm btn-glow"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                  </svg>
+                  Start Over
+                </button>
+              </div>
             </div>
             
             {questions.length > 0 ? (
-              <div className="space-y-8">
-                {questions.map((question, index) => (
-                  <FlashcardCard 
-                    key={index}
-                    question={question}
-                    onAnswer={handleEvaluateAnswer}
-                  />
-                ))}
+              <div>
+                {/* Flashcard Progress Indicator */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center">
+                    <span className="font-semibold text-white/90">Card {currentCardIndex + 1} of {questions.length}</span>
+                  </div>
+                  <div className="w-64 h-2 overflow-hidden bg-base-300 rounded-full">
+                    <div 
+                      className="h-full bg-primary rounded-full transition-all duration-300"
+                      style={{ width: `${((currentCardIndex + 1) / questions.length) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+                
+                {/* Flashcard */}
+                <FlashcardCard 
+                  key={currentCardIndex}
+                  question={questions[currentCardIndex]}
+                  onAnswer={handleEvaluateAnswer}
+                />
+                
+                {/* Navigation Buttons */}
+                <div className="flex justify-between mt-8">
+                  <button 
+                    onClick={goToPrevCard}
+                    className="px-4 rounded-lg btn btn-outline btn-glow"
+                    disabled={currentCardIndex === 0}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                    Previous
+                  </button>
+                  <button 
+                    onClick={goToNextCard}
+                    className="px-4 rounded-lg btn btn-primary btn-glow"
+                    disabled={currentCardIndex === questions.length - 1}
+                  >
+                    Next
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="p-12 text-center rounded-xl glass-card">

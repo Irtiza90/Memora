@@ -6,6 +6,8 @@
 :root {
   --card-blur: 8px;
   --card-shadow-color: rgba(168, 85, 247, 0.4);
+  --primary-color: #a855f7;
+  --secondary-color: #3b82f6;
 }
 
 #root {
@@ -93,14 +95,24 @@
 }
 
 .hover-card:hover {
-  transform: translateY(-5px);
+  /* transform: translateY(-5px); */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* Input field glow effect */
-.input-glow:focus, .textarea-glow:focus, .select-glow:focus {
+.input-glow:focus, 
+.textarea-glow:focus, 
+.select-glow:focus {
+  transition: all 0.7s ease;
+}
+
+.input-glow:focus, 
+.textarea-glow:focus, 
+.select-glow:focus {
   box-shadow: 0 0 0 1px var(--card-shadow-color), 0 0 10px var(--card-shadow-color);
-  border-color: theme(colors.primary);
+  border-color: var(--primary-color);
+
+  outline: none !important;
 }
 
 /* Custom scrollbar */
@@ -123,9 +135,11 @@
 
 /* Text gradient */
 .text-gradient {
-  background: linear-gradient(to right, theme(colors.primary), theme(colors.secondary));
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* Page transition */
