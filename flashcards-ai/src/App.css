@@ -1,8 +1,17 @@
+/* This file intentionally left empty as we're using TailwindCSS and DaisyUI for styling */
+
+/* Modern Dark UI Styling */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --card-blur: 8px;
+  --card-shadow-color: rgba(168, 85, 247, 0.4);
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
 }
 
 .logo {
@@ -39,4 +48,92 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Glassmorphism card effect */
+.glass-card {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Modern button glow effect */
+.btn-glow {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 15px var(--card-shadow-color);
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(168, 85, 247, 0.3), transparent);
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover::after {
+  transform: translateY(-10px) scale(1.05);
+}
+
+/* Card hover effect */
+.hover-card {
+  transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Input field glow effect */
+.input-glow:focus, .textarea-glow:focus, .select-glow:focus {
+  box-shadow: 0 0 0 1px var(--card-shadow-color), 0 0 10px var(--card-shadow-color);
+  border-color: theme(colors.primary);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.5);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.7);
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(to right, theme(colors.primary), theme(colors.secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Page transition */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
