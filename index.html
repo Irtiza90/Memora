@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Flashcards</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+      color: #111827;
+    }
+    p.subtitle {
+      color: #6b7280;
+      margin-top: 8px;
+    }
+    #flashcards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .flashcard {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 16px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .flashcard h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #1f2937;
+    }
+    .toggle-btn {
+      margin-top: 8px;
+      background: none;
+      border: none;
+      color: #2563eb;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: underline;
+      padding: 0;
+    }
+    .flashcard .answer {
+      margin-top: 12px;
+      display: none;
+      flex-direction: column;
+    }
+    .flashcard .answer p {
+      margin: 0;
+      font-weight: 500;
+      color: #374151;
+    }
+    .flashcard .answer code {
+      background: #f9fafb;
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 6px;
+      display: block;
+      white-space: pre-wrap;
+      font-family: Menlo, monospace;
+    }
+    footer {
+      margin-top: 40px;
+      color: #6b7280;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Study Flashcards</h1>
+    <p class="subtitle">Click a card to reveal the answer and example.</p>
+  </header>
+
+  <div id="flashcards-container"></div>
+
+  <footer>Powered by YourAIstack ©2025</footer>
+
+  <script>
+    // Sample data (replace with API fetch as needed)
+    const flashcards = [
+      {
+        q: "What is HTML?",
+        a: "HTML (HyperText Markup Language) is the standard markup language for creating web pages. It provides the structure and content of a webpage using elements and tags.",
+        example: "<h1>Hello, World!</h1> creates a level 1 heading."
+      },
+      {
+        q: "What is CSS?",
+        a: "CSS (Cascading Style Sheets) is used to style HTML elements. It controls the visual presentation of a webpage, including layout, colors, fonts, and more.",
+        example: "p { color: blue; } will make all paragraph text blue."
+      },
+      {
+        q: "What is JavaScript?",
+        a: "JavaScript (JS) is a programming language that adds interactivity to websites. It allows you to manipulate the DOM (Document Object Model), handle events, and make dynamic changes.",
+        example: "document.getElementById(\"myButton\").addEventListener(\"click\", function() { alert(\"Button clicked!\"); });"
+      },
+      // Add more flashcards here...
+    ];
+
+    function createFlashcard(card) {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'flashcard';
+
+      const question = document.createElement('h3');
+      question.textContent = card.q;
+      cardEl.appendChild(question);
+
+      const button = document.createElement('button');
+      button.className = 'toggle-btn';
+      button.textContent = 'Show Answer';
+      cardEl.appendChild(button);
+
+      const answerWrap = document.createElement('div');
+      answerWrap.className = 'answer';
+
+      const answer = document.createElement('p');
+      answer.textContent = card.a;
+      answerWrap.appendChild(answer);
+
+      const code = document.createElement('code');
+      code.textContent = card.example;
+      answerWrap.appendChild(code);
+
+      cardEl.appendChild(answerWrap);
+
+      button.addEventListener('click', () => {
+        const isVisible = answerWrap.style.display === 'flex';
+        answerWrap.style.display = isVisible ? 'none' : 'flex';
+        button.textContent = isVisible ? 'Show Answer' : 'Hide Answer';
+      });
+
+      return cardEl;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('flashcards-container');
+      flashcards.forEach(card => {
+        container.appendChild(createFlashcard(card));
+      });
+    });
+  </script>
+</body>
+</html>
