@@ -1,0 +1,169 @@
+2025-04-19 08:18:45,616 - GeminiAPI - INFO - Initializing GeminiAPI client
+2025-04-19 08:18:46,730 - GeminiAPI - INFO - Successfully initialized Gemini client
+2025-04-19 08:18:46,786 - werkzeug - WARNING -  * Debugger is active!
+2025-04-19 08:18:46,811 - werkzeug - INFO -  * Debugger PIN: 177-991-553
+2025-04-19 08:18:50,429 - werkzeug - INFO -  * Detected change in 'F:\\Dev\\Challenges\\DSL\\Irtiza-Babar-DLS-Knockout-Task\\server.py', reloading
+2025-04-19 08:18:54,084 - GeminiAPI - INFO - Initializing GeminiAPI client
+2025-04-19 08:18:55,296 - GeminiAPI - INFO - Successfully initialized Gemini client
+2025-04-19 08:18:55,296 - FlashcardServer - INFO - Starting Flashcard Server
+2025-04-19 08:18:55,331 - werkzeug - WARNING -  * Debugger is active!
+2025-04-19 08:18:55,358 - werkzeug - INFO -  * Debugger PIN: 177-991-553
+2025-04-19 08:19:43,543 - werkzeug - INFO -  * Detected change in 'F:\\Dev\\Challenges\\DSL\\Irtiza-Babar-DLS-Knockout-Task\\api.py', reloading
+2025-04-19 08:19:46,706 - GeminiAPI - INFO - Initializing GeminiAPI client
+2025-04-19 08:19:47,560 - GeminiAPI - INFO - Successfully initialized Gemini client
+2025-04-19 08:19:47,560 - FlashcardServer - INFO - Starting Flashcard Server
+2025-04-19 08:19:47,593 - werkzeug - WARNING -  * Debugger is active!
+2025-04-19 08:19:47,606 - werkzeug - INFO -  * Debugger PIN: 177-991-553
+2025-04-19 08:20:14,667 - FlashcardServer - INFO - Request: POST http://localhost:5000/api/evaluate
+2025-04-19 08:20:14,667 - FlashcardServer - DEBUG - Headers: {'Host': 'localhost:5000', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', 'Accept': '*/*', 'Accept-Language': 'en-US,en;q=0.5', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Referer': 'http://localhost:5173/', 'Content-Type': 'application/json', 'Content-Length': '2591', 'Origin': 'http://localhost:5173', 'Sec-Gpc': '1', 'Connection': 'keep-alive', 'Sec-Fetch-Dest': 'empty', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Priority': 'u=0'}
+2025-04-19 08:20:14,734 - FlashcardServer - INFO - Evaluating answer for question: Explain the SOLID principles of object-oriented de...
+2025-04-19 08:20:14,735 - GeminiAPI - INFO - Evaluating answer for question: Explain the SOLID principles of object-oriented de...
+2025-04-19 08:20:14,736 - GeminiAPI - DEBUG - Sending evaluation prompt to Gemini API: You are an expert tutor.
+For the question "Explain the SOLID principles of object-oriented design an...
+2025-04-19 08:20:14,743 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-04-19 08:20:14,749 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-04-19 08:20:14,890 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016D7D294980>
+2025-04-19 08:20:14,905 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016D7D0A0BD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-04-19 08:20:15,068 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016D7D159DC0>
+2025-04-19 08:20:15,068 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-04-19 08:20:15,068 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-04-19 08:20:15,068 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-04-19 08:20:15,068 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-04-19 08:20:15,068 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-04-19 08:20:17,094 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sat, 19 Apr 2025 03:20:13 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=2007'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-04-19 08:20:17,097 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 200 OK"
+2025-04-19 08:20:17,098 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-04-19 08:20:17,100 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-04-19 08:20:17,100 - httpcore.http11 - DEBUG - response_closed.started
+2025-04-19 08:20:17,101 - httpcore.http11 - DEBUG - response_closed.complete
+2025-04-19 08:20:17,106 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-04-19 08:20:17,106 - GeminiAPI - DEBUG - Received evaluation response: ```json
+{"rating": 4, "feedback": "The answer provides a good explanation of the SOLID principles an...
+2025-04-19 08:20:17,107 - GeminiAPI - DEBUG - Attempting to extract JSON from response
+2025-04-19 08:20:17,108 - GeminiAPI - DEBUG - Found JSON string: {"rating": 4, "feedback": "The answer provides a good explanation of the SOLID principles and a clea...
+2025-04-19 08:20:17,109 - GeminiAPI - ERROR - Failed to parse JSON: Invalid control character at: line 1 column 378 (char 377)
+2025-04-19 08:20:17,110 - GeminiAPI - ERROR - Failed to evaluate answer: Failed to parse JSON: Invalid control character at: line 1 column 378 (char 377)
+2025-04-19 08:20:17,111 - FlashcardServer - ERROR - API error: Failed to evaluate answer: Failed to parse JSON: Invalid control character at: line 1 column 378 (char 377)
+2025-04-19 08:20:17,111 - FlashcardServer - INFO - Response: 500 INTERNAL SERVER ERROR
+2025-04-19 08:20:17,112 - FlashcardServer - DEBUG - Response data: {
+  "error": "Failed to evaluate answer: Failed to parse JSON: Invalid control character at: line 1 column 378 (char 377)"
+}
+...
+2025-04-19 08:20:17,113 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 08:20:17] "[35m[1mPOST /api/evaluate HTTP/1.1[0m" 500 -
+2025-04-19 08:21:01,404 - FlashcardServer - INFO - Request: POST http://localhost:5000/api/evaluate
+2025-04-19 08:21:01,404 - FlashcardServer - DEBUG - Headers: {'Host': 'localhost:5000', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', 'Accept': '*/*', 'Accept-Language': 'en-US,en;q=0.5', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Referer': 'http://localhost:5173/', 'Content-Type': 'application/json', 'Content-Length': '393', 'Origin': 'http://localhost:5173', 'Sec-Gpc': '1', 'Connection': 'keep-alive', 'Sec-Fetch-Dest': 'empty', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Priority': 'u=0'}
+2025-04-19 08:21:01,428 - FlashcardServer - INFO - Evaluating answer for question: Explain the SOLID principles of object-oriented de...
+2025-04-19 08:21:01,428 - GeminiAPI - INFO - Evaluating answer for question: Explain the SOLID principles of object-oriented de...
+2025-04-19 08:21:01,428 - GeminiAPI - DEBUG - Sending evaluation prompt to Gemini API: You are an expert tutor.
+For the question "Explain the SOLID principles of object-oriented design an...
+2025-04-19 08:21:01,429 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-04-19 08:21:01,443 - httpcore.connection - DEBUG - close.started
+2025-04-19 08:21:01,445 - httpcore.connection - DEBUG - close.complete
+2025-04-19 08:21:01,446 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-04-19 08:21:01,466 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016D7D295DF0>
+2025-04-19 08:21:01,468 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016D7D0A0BD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-04-19 08:21:01,589 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016D7D295D30>
+2025-04-19 08:21:01,589 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-04-19 08:21:01,589 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-04-19 08:21:01,589 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-04-19 08:21:01,589 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-04-19 08:21:01,589 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-04-19 08:21:03,169 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sat, 19 Apr 2025 03:20:59 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=1561'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-04-19 08:21:03,169 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 200 OK"
+2025-04-19 08:21:03,169 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-04-19 08:21:03,169 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-04-19 08:21:03,169 - httpcore.http11 - DEBUG - response_closed.started
+2025-04-19 08:21:03,169 - httpcore.http11 - DEBUG - response_closed.complete
+2025-04-19 08:21:03,169 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-04-19 08:21:03,169 - GeminiAPI - DEBUG - Received evaluation response: ```json
+{"rating": 1, "feedback": "The answer has only started to address the question. While it cor...
+2025-04-19 08:21:03,169 - GeminiAPI - DEBUG - Attempting to extract JSON from response
+2025-04-19 08:21:03,169 - GeminiAPI - DEBUG - Found JSON string: {"rating": 1, "feedback": "The answer has only started to address the question. While it correctly i...
+2025-04-19 08:21:03,169 - GeminiAPI - ERROR - Failed to parse JSON: Invalid control character at: line 1 column 229 (char 228)
+2025-04-19 08:21:03,169 - GeminiAPI - ERROR - Failed to evaluate answer: Failed to parse JSON: Invalid control character at: line 1 column 229 (char 228)
+2025-04-19 08:21:03,169 - FlashcardServer - ERROR - API error: Failed to evaluate answer: Failed to parse JSON: Invalid control character at: line 1 column 229 (char 228)
+2025-04-19 08:21:03,169 - FlashcardServer - INFO - Response: 500 INTERNAL SERVER ERROR
+2025-04-19 08:21:03,169 - FlashcardServer - DEBUG - Response data: {
+  "error": "Failed to evaluate answer: Failed to parse JSON: Invalid control character at: line 1 column 229 (char 228)"
+}
+...
+2025-04-19 08:21:03,178 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 08:21:03] "[35m[1mPOST /api/evaluate HTTP/1.1[0m" 500 -
+2025-04-19 08:21:47,403 - FlashcardServer - INFO - Request: POST http://localhost:5000/api/flashcards
+2025-04-19 08:21:47,403 - FlashcardServer - DEBUG - Headers: {'Host': 'localhost:5000', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', 'Accept': '*/*', 'Accept-Language': 'en-US,en;q=0.5', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Referer': 'http://localhost:5173/', 'Content-Type': 'application/json', 'Content-Length': '61', 'Origin': 'http://localhost:5173', 'Sec-Gpc': '1', 'Connection': 'keep-alive', 'Sec-Fetch-Dest': 'empty', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Priority': 'u=0'}
+2025-04-19 08:21:47,403 - FlashcardServer - DEBUG - Body: {'topic': 'Machine learning', 'level': 'intermediate', 'count': 3}
+2025-04-19 08:21:47,403 - FlashcardServer - INFO - Generating 3 flashcards for topic: Machine learning, level: intermediate
+2025-04-19 08:21:47,403 - GeminiAPI - INFO - Generating flashcards for topic: Machine learning, level: intermediate, count: 3
+2025-04-19 08:21:47,403 - GeminiAPI - DEBUG - Sending prompt to Gemini API: You are an expert tutor.
+The user wants to study the topic: "Machine learning" at a intermediate lev...
+2025-04-19 08:21:47,403 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-04-19 08:21:47,407 - httpcore.connection - DEBUG - close.started
+2025-04-19 08:21:47,407 - httpcore.connection - DEBUG - close.complete
+2025-04-19 08:21:47,407 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-04-19 08:21:47,432 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016D7D297590>
+2025-04-19 08:21:47,433 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016D7D0A0BD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-04-19 08:21:47,555 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016D7D2974A0>
+2025-04-19 08:21:47,555 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-04-19 08:21:47,555 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-04-19 08:21:47,557 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-04-19 08:21:47,557 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-04-19 08:21:47,557 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-04-19 08:21:48,584 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sat, 19 Apr 2025 03:21:44 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=1012'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-04-19 08:21:48,584 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 200 OK"
+2025-04-19 08:21:48,584 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-04-19 08:21:48,584 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-04-19 08:21:48,584 - httpcore.http11 - DEBUG - response_closed.started
+2025-04-19 08:21:48,588 - httpcore.http11 - DEBUG - response_closed.complete
+2025-04-19 08:21:48,588 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-04-19 08:21:48,588 - GeminiAPI - DEBUG - Received response from Gemini API: ```json
+[
+  "Explain the bias-variance tradeoff in machine learning. How do techniques like regulari...
+2025-04-19 08:21:48,588 - GeminiAPI - DEBUG - Attempting to extract JSON from response
+2025-04-19 08:21:48,588 - GeminiAPI - DEBUG - Found JSON string: [
+  "Explain the bias-variance tradeoff in machine learning. How do techniques like regularization a...
+2025-04-19 08:21:48,588 - GeminiAPI - INFO - Successfully generated 3 flashcards
+2025-04-19 08:21:48,602 - FlashcardServer - INFO - Successfully generated flashcards in 1.18 seconds
+2025-04-19 08:21:48,602 - FlashcardServer - INFO - Response: 200 OK
+2025-04-19 08:21:48,602 - FlashcardServer - DEBUG - Response data: {
+  "questions": [
+    "Explain the bias-variance tradeoff in machine learning. How do techniques like regularization and cross-validation address this?",
+    "Describe the differences between various...
+2025-04-19 08:21:48,604 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 08:21:48] "POST /api/flashcards HTTP/1.1" 200 -
+2025-04-19 08:21:55,518 - FlashcardServer - INFO - Request: POST http://localhost:5000/api/evaluate
+2025-04-19 08:21:55,518 - FlashcardServer - DEBUG - Headers: {'Host': 'localhost:5000', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', 'Accept': '*/*', 'Accept-Language': 'en-US,en;q=0.5', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Referer': 'http://localhost:5173/', 'Content-Type': 'application/json', 'Content-Length': '167', 'Origin': 'http://localhost:5173', 'Sec-Gpc': '1', 'Connection': 'keep-alive', 'Sec-Fetch-Dest': 'empty', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Priority': 'u=0'}
+2025-04-19 08:21:55,522 - FlashcardServer - DEBUG - Body: {'question': 'Explain the bias-variance tradeoff in machine learning. How do techniques like regularization and cross-validation address this?', 'answer': "i don't know"}
+2025-04-19 08:21:55,522 - FlashcardServer - INFO - Evaluating answer for question: Explain the bias-variance tradeoff in machine lear...
+2025-04-19 08:21:55,522 - GeminiAPI - INFO - Evaluating answer for question: Explain the bias-variance tradeoff in machine lear...
+2025-04-19 08:21:55,522 - GeminiAPI - DEBUG - Sending evaluation prompt to Gemini API: You are an expert tutor.
+For the question "Explain the bias-variance tradeoff in machine learning. H...
+2025-04-19 08:21:55,522 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-04-19 08:21:55,533 - httpcore.connection - DEBUG - close.started
+2025-04-19 08:21:55,533 - httpcore.connection - DEBUG - close.complete
+2025-04-19 08:21:55,534 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-04-19 08:21:55,551 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016D7D2FCCB0>
+2025-04-19 08:21:55,551 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016D7D0A0BD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-04-19 08:21:55,673 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016D7D2FC6B0>
+2025-04-19 08:21:55,677 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-04-19 08:21:55,677 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-04-19 08:21:55,677 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-04-19 08:21:55,677 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-04-19 08:21:55,680 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-04-19 08:21:56,965 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sat, 19 Apr 2025 03:21:53 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=1271'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-04-19 08:21:56,965 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 200 OK"
+2025-04-19 08:21:56,967 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-04-19 08:21:56,967 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-04-19 08:21:56,968 - httpcore.http11 - DEBUG - response_closed.started
+2025-04-19 08:21:56,968 - httpcore.http11 - DEBUG - response_closed.complete
+2025-04-19 08:21:56,968 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-04-19 08:21:56,970 - GeminiAPI - DEBUG - Received evaluation response: ```json
+{"rating": 0, "feedback": "The answer 'I don't know' demonstrates no understanding of the bi...
+2025-04-19 08:21:56,970 - GeminiAPI - DEBUG - Attempting to extract JSON from response
+2025-04-19 08:21:56,970 - GeminiAPI - DEBUG - Found JSON string: {"rating": 0, "feedback": "The answer 'I don't know' demonstrates no understanding of the bias-varia...
+2025-04-19 08:21:56,970 - GeminiAPI - INFO - Successfully evaluated answer with rating: 0
+2025-04-19 08:21:56,970 - FlashcardServer - INFO - Successfully evaluated answer in 1.45 seconds
+2025-04-19 08:21:56,970 - FlashcardServer - INFO - Response: 200 OK
+2025-04-19 08:21:56,972 - FlashcardServer - DEBUG - Response data: {
+  "feedback": "The answer 'I don't know' demonstrates no understanding of the bias-variance tradeoff or related techniques. It provides no information relevant to the question.",
+  "rating": 0
+}
+...
+2025-04-19 08:21:56,972 - werkzeug - INFO - 127.0.0.1 - - [19/Apr/2025 08:21:56] "POST /api/evaluate HTTP/1.1" 200 -
