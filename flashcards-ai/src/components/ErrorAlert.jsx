@@ -2,7 +2,7 @@ const ErrorAlert = ({ message, onDismiss, type = 'general' }) => {
   if (!message) return null;
   
   // Determine alert style based on error type
-  let alertClass = 'max-w-2xl mx-auto mb-8 border shadow-lg alert bg-error/20 text-error-content border-error/30 rounded-xl fade-in';
+  let alertClass = 'max-w-2xl mx-auto mb-8 border shadow-lg alert bg-error/20 text-error-content border-error/30 rounded-xl fade-in text-white';
   let title = 'Error';
   let displayMessage = message;
   let icon = (
@@ -13,9 +13,9 @@ const ErrorAlert = ({ message, onDismiss, type = 'general' }) => {
   
   // Check for JSON decode error
   if (message.includes("Failed to parse JSON") || message.includes("JSONDecodeError")) {
-    alertClass = 'max-w-2xl mx-auto mb-8 border shadow-lg alert bg-warning/20 text-warning-content border-warning/30 rounded-xl fade-in';
-    title = 'Response Too Complex or Lengthy';
-    displayMessage = "The AI couldn't format its response correctly. Please use fewer words in your answer and try again.";
+    alertClass = 'max-w-2xl mx-auto mb-8 border shadow-lg alert bg-warning/20 text-warning-content border-warning/30 rounded-xl fade-in text-white';
+    title = 'Processing Failed';
+    displayMessage = "The AI couldn't format its response correctly. Please use fewer words in your answer or try again.";
     icon = (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 stroke-current shrink-0" fill="none" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -24,7 +24,7 @@ const ErrorAlert = ({ message, onDismiss, type = 'general' }) => {
   } 
   // Customize based on error type
   else if (type === 'token_limit_exceeded') {
-    alertClass = 'max-w-2xl mx-auto mb-8 border shadow-lg alert bg-warning/20 text-warning-content border-warning/30 rounded-xl fade-in';
+    alertClass = 'max-w-2xl mx-auto mb-8 border shadow-lg alert bg-warning/20 text-warning-content border-warning/30 rounded-xl fade-in text-white';
     title = 'Token Limit Exceeded';
     icon = (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 stroke-current shrink-0" fill="none" viewBox="0 0 24 24">
