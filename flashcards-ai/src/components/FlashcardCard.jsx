@@ -125,7 +125,7 @@ const FlashcardCard = ({ question, onAnswer, onComplete }) => {
 
             <div className="p-5 mb-5 border bg-base-200/50 rounded-xl border-base-300">
               <p className="mb-2 text-sm font-bold tracking-wider text-white uppercase opacity-70">Your answer</p>
-              <p className="leading-relaxed text-white">{answer}</p>
+              <p className="leading-relaxed text-white whitespace-pre-wrap">{answer}</p>
             </div>
             
             <div className="flex justify-end mt-6">

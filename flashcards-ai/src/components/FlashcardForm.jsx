@@ -59,11 +59,11 @@ const FlashcardForm = ({ onGenerate, isLoading }) => {
             className="range range-primary"
             step="1"
           />
-          <div className="flex justify-between w-full px-2 mt-2 text-xs text-white">
+          {/* <div className="flex justify-between w-full px-2 mt-2 text-xs text-white">
             <span className="font-medium">10</span>
             <span className="font-medium">15</span>
             <span className="font-medium">20</span>
-          </div>
+          </div> */}
         </div>
         
         <button
