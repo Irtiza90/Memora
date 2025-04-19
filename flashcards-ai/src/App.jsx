@@ -225,7 +225,7 @@ function App() {
       
       <Navbar />
       
-      <main className="container relative z-10 flex-grow px-4 py-6 mx-auto">
+      <main className="container relative z-10 flex-grow px-4 py-10 mx-auto" style={{background: '#000000ad'}}>
         <h1 className="mb-10 text-4xl font-bold text-center text-white md:text-5xl">Learn with AI-Powered Flashcards</h1>
         
         {error && <ErrorAlert message={error} onDismiss={() => setError(null)} />}

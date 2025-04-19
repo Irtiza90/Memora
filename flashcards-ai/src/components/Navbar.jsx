@@ -14,7 +14,7 @@ const Navbar = () => {
   }, [theme]);
   
   return (
-    <div className="z-50 px-4 mb-8 shadow-lg navbar bg-gradient-to-r from-base-300 to-neutral backdrop-blur-sm sm:px-8">
+    <div className="z-50 px-4 mb-0 shadow-lg navbar bg-gradient-to-r from-base-300 to-neutral backdrop-blur-sm sm:px-8">
       <div className="flex-1">
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent shadow-neon">
