@@ -37,11 +37,11 @@ const SavedGamesList = ({ savedGames, onLoadGame, onDeleteGame }) => {
                   {game.questions.length} questions • Created: {new Date(game.timestamp).toLocaleDateString()}
                 </div>
               </div>
-              <div className="badge badge-primary">{game.level}</div>
+              <div className="capitalize badge badge-primary">{game.level}</div>
             </div>
             <div className="collapse-content">
               <div className="pt-2">
-                <p className="mb-3 text-white">Topic: <span className="font-semibold">{game.topic}</span></p>
+                <p className="mb-3 text-white">Topic: <span className="font-semibold capitalize">{game.topic}</span></p>
                 <div className="flex flex-wrap gap-2 mt-4">
                   <button 
                     onClick={() => onLoadGame(game)} 

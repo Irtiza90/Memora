@@ -152,7 +152,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Markdown Content Styling */
+/* Markdown Content Styling - Enhanced for code blocks */
 .markdown-content {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -175,12 +175,40 @@
   font-style: italic;
 }
 
+/* Improved code styling */
+.markdown-content code {
+  font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+}
+
+.markdown-content pre:has(> code:not([class*="language-"])) {
+  display: inline-flex;
+  padding:4px 6px;
+  margin:0;
+}
+
+.markdown-content :not(pre) > code {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  white-space: nowrap;
+  color: #f8f8f2; /* Light color for code */
+}
+
+/* Code blocks */
 .markdown-content pre {
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 0.375rem;
   padding: 1rem;
   overflow-x: auto;
   margin: 1rem 0;
+}
+
+.markdown-content pre > code {
+  display: block;
+  padding: 0;
+  white-space: pre;
+  background: transparent;
 }
 
 .markdown-content table {

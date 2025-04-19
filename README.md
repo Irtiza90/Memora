@@ -1,4 +1,4 @@
-# Memora - AI-Powered Flashcard Learning Platform
+# Memora - AI-Powered Learning Platform
 
 Memora is an interactive flashcard application that uses AI to help you learn any topic. The application generates custom flashcards based on your chosen topic and difficulty level, evaluates your answers, and provides detailed feedback with markdown support.
 

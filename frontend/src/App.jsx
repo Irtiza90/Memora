@@ -321,7 +321,7 @@ function App() {
       <Navbar onHomeClick={handleHomeClick} />
       
       <main className="relative z-10 flex-grow w-full px-4 py-10 mx-auto" style={{background: '#000000ad'}}>
-        <h1 className="mb-10 text-4xl font-bold text-center text-white md:text-5xl">Memora - Learn Anything</h1>
+        <h1 className="mt-6 mb-12 text-4xl font-bold text-center text-white md:text-5xl">Memora - Learn <span className="text-gradient"> Anything</span></h1>
         
         {error && <ErrorAlert message={error} onDismiss={clearError} type={errorType} />}
         
@@ -347,7 +347,7 @@ function App() {
               <div className="flex gap-2">
                 <button 
                   onClick={handleNewGame} 
-                  className="px-4 text-white rounded-lg btn btn-outline btn-sm btn-glow"
+                  className="content-center px-4 text-white rounded-lg btn btn-outline btn-sm btn-glow"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
@@ -362,8 +362,8 @@ function App() {
                 {/* Game Info */}
                 <div className="flex items-center justify-between mb-4 text-white">
                   <div>
-                    <div className="text-sm opacity-70">Topic: <span className="font-semibold">{gameDetails.topic}</span></div>
-                    <div className="text-sm opacity-70">Level: <span className="font-semibold">{gameDetails.level}</span></div>
+                    <div className="text-sm opacity-70">Topic: <span className="font-semibold capitalize">{gameDetails.topic}</span></div>
+                    <div className="text-sm opacity-70">Level: <span className="font-semibold capitalize">{gameDetails.level}</span></div>
                   </div>
                   <div className="badge badge-lg badge-primary">{getCompletedQuestionCount()}/{questions.length} Completed</div>
                 </div>
@@ -436,7 +436,7 @@ function App() {
       
       <footer className="relative z-10 p-6 border-t footer footer-center bg-base-300/50 backdrop-blur-sm text-base-content border-primary/10">
         <div>
-          <p className="font-medium">© 2025 - Memora - Remember With AI</p>
+          <p className="font-medium">© 2025 - Memora - AI Powered Learning</p>
         </div>
       </footer>
     </div>
