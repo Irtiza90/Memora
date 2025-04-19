@@ -19,7 +19,7 @@ logging.basicConfig(
 logger = logging.getLogger('FlashcardServer')
 
 app = Flask(__name__)
-CORS(app, origins=["https://irtiza90.github.io", "http://localhost:*"])
+CORS(app, origins=["https://irtiza90.github.io", "http://localhost:*"], supports_credentials=True, methods=["GET", "POST", "OPTIONS"])
 api = GeminiAPI()
 
 @app.before_request
