@@ -3,7 +3,7 @@ import json
 import logging
 from google import genai
 from dotenv import dotenv_values
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Any, cast
 from dataclasses import dataclass
 
 # Configure logging
@@ -16,6 +16,10 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger('GeminiAPI')
+
+# Constants
+GENAI_MODEL = "gemini-2.0-flash"
+INPUT_TOKEN_LIMIT = 500
 
 @dataclass
 class Flashcard:
@@ -49,13 +53,38 @@ Format it as JSON like this:
 "What is CSS for"
 ]'''
         try:
+            # Check token count
+            token_count_response = self.client.models.count_tokens(model=GENAI_MODEL, contents=prompt)
+            token_count = getattr(token_count_response, 'total_tokens', 0)
+            if token_count == 0 or token_count is None:
+                logger.warning("Could not determine token count, proceeding with caution")
+            else:
+                logger.info(f"Token count for prompt: {token_count}")
+            
+            if token_count >= INPUT_TOKEN_LIMIT:
+                logger.warning(f"Token count ({token_count}) exceeds limit ({INPUT_TOKEN_LIMIT})")
+                raise GeminiTokenLimitError(f"Input size of {token_count} tokens exceeds the limit of {INPUT_TOKEN_LIMIT} tokens. Please reduce your input.")
+            
             logger.debug(f"Sending prompt to Gemini API: {prompt[:100]}...")
-            resp = self.client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+            resp = self.client.models.generate_content(model=GENAI_MODEL, contents=prompt)
+            
+            if resp.text is None:
+                logger.error("Received empty response from Gemini API")
+                raise GeminiAPIError("Received empty response from Gemini API")
+                
             logger.debug(f"Received response from Gemini API: {resp.text[:100]}...")
             
             questions = self._extract_json(resp.text)
-            logger.info(f"Successfully generated {len(questions)} flashcards")
-            return questions
+            if not isinstance(questions, list):
+                logger.error("Expected list of questions but got different format")
+                raise GeminiAPIError("Received invalid response format from the API")
+                
+            questions_list = cast(List[str], questions)
+            logger.info(f"Successfully generated {len(questions_list)} flashcards")
+            return questions_list
+        except GeminiTokenLimitError:
+            # Re-raise token limit errors
+            raise
         except Exception as e:
             if "rate limit" in str(e).lower():
                 logger.error("API rate limit exceeded")
@@ -74,13 +103,38 @@ Now rate the answer with a rating between 0-5, and feedback
 Only give me the JSON data and nothing else, return it in the following structure:
 {{"rating": 0, "feedback": "The answer ..."}}'''
         try:
+            # Check token count
+            token_count_response = self.client.models.count_tokens(model=GENAI_MODEL, contents=prompt)
+            token_count = getattr(token_count_response, 'total_tokens', 0)
+            if token_count == 0 or token_count is None:
+                logger.warning("Could not determine token count for evaluation, proceeding with caution")
+            else:
+                logger.info(f"Token count for evaluation prompt: {token_count}")
+            
+            if token_count >= INPUT_TOKEN_LIMIT:
+                logger.warning(f"Token count ({token_count}) exceeds limit ({INPUT_TOKEN_LIMIT})")
+                raise GeminiTokenLimitError(f"Input size of {token_count} tokens exceeds the limit of {INPUT_TOKEN_LIMIT} tokens. Please reduce your input.")
+            
             logger.debug(f"Sending evaluation prompt to Gemini API: {prompt[:100]}...")
-            resp = self.client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+            resp = self.client.models.generate_content(model=GENAI_MODEL, contents=prompt)
+            
+            if resp.text is None:
+                logger.error("Received empty evaluation response from Gemini API")
+                raise GeminiAPIError("Received empty response from Gemini API")
+                
             logger.debug(f"Received evaluation response: {resp.text[:100]}...")
             
             result = self._extract_json(resp.text)
-            logger.info(f"Successfully evaluated answer with rating: {result.get('rating')}")
-            return result
+            if not isinstance(result, dict):
+                logger.error("Expected dictionary result but got different format")
+                raise GeminiAPIError("Received invalid response format from the API")
+                
+            result_dict = cast(Dict[str, Union[float, str]], result)
+            logger.info(f"Successfully evaluated answer with rating: {result_dict.get('rating')}")
+            return result_dict
+        except GeminiTokenLimitError:
+            # Re-raise token limit errors
+            raise
         except Exception as e:
             if "rate limit" in str(e).lower():
                 logger.error("API rate limit exceeded during evaluation")
@@ -88,7 +142,7 @@ Only give me the JSON data and nothing else, return it in the following structur
             logger.error(f"Failed to evaluate answer: {str(e)}")
             raise GeminiAPIError(f"Failed to evaluate answer: {str(e)}")
 
-    def _extract_json(self, text: str) -> Union[List, Dict]:
+    def _extract_json(self, text: str) -> Union[List[Any], Dict[str, Any]]:
         logger.debug("Attempting to extract JSON from response")
         try:
             m = re.search(r"```json\s*(\{.*?\}|\[.*?\])\s*```", text, re.DOTALL)
@@ -113,4 +167,8 @@ class GeminiAPIError(Exception):
 
 class GeminiRateLimitError(GeminiAPIError):
     """Exception raised when API rate limit is exceeded"""
+    pass
+
+class GeminiTokenLimitError(GeminiAPIError):
+    """Exception raised when input token limit is exceeded"""
     pass

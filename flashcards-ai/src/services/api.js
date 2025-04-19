@@ -13,6 +13,20 @@ export const generateFlashcards = async (data) => {
     const result = await response.json();
     
     if (!response.ok) {
+      // Handle specific error types
+      if (response.status === 413 || result.error_type === 'token_limit_exceeded') {
+        throw {
+          message: result.error || 'Input exceeds token limit',
+          type: 'token_limit_exceeded'
+        };
+      }
+      // Handle rate limit errors
+      if (response.status === 429) {
+        throw {
+          message: result.error || 'Rate limit exceeded, please try again later',
+          type: 'rate_limit'
+        };
+      }
       throw new Error(result.error || 'Failed to generate flashcards');
     }
     
@@ -36,6 +50,20 @@ export const evaluateAnswer = async (question, answer) => {
     const result = await response.json();
     
     if (!response.ok) {
+      // Handle specific error types
+      if (response.status === 413 || result.error_type === 'token_limit_exceeded') {
+        throw {
+          message: result.error || 'Input exceeds token limit',
+          type: 'token_limit_exceeded'
+        };
+      }
+      // Handle rate limit errors
+      if (response.status === 429) {
+        throw {
+          message: result.error || 'Rate limit exceeded, please try again later',
+          type: 'rate_limit'
+        };
+      }
       throw new Error(result.error || 'Failed to evaluate answer');
     }
     

@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from api import GeminiAPI, GeminiAPIError, GeminiRateLimitError
+from api import GeminiAPI, GeminiAPIError, GeminiRateLimitError, GeminiTokenLimitError
 from typing import Dict, List
 import json
 import logging
@@ -57,6 +57,12 @@ def get_flashcards():
         return jsonify({
             'questions': questions
         })
+    except GeminiTokenLimitError as e:
+        logger.error(f"Token limit exceeded: {str(e)}")
+        return jsonify({
+            'error': str(e),
+            'error_type': 'token_limit_exceeded'
+        }), 413  # Payload Too Large
     except GeminiRateLimitError as e:
         logger.error(f"Rate limit exceeded: {str(e)}")
         return jsonify({
@@ -94,6 +100,12 @@ def evaluate_answer():
         duration = time.time() - start_time
         logger.info(f"Successfully evaluated answer in {duration:.2f} seconds")
         return jsonify(result)
+    except GeminiTokenLimitError as e:
+        logger.error(f"Token limit exceeded: {str(e)}")
+        return jsonify({
+            'error': str(e),
+            'error_type': 'token_limit_exceeded'
+        }), 413  # Payload Too Large
     except GeminiRateLimitError as e:
         logger.error(f"Rate limit exceeded: {str(e)}")
         return jsonify({

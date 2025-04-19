@@ -20,6 +20,7 @@ function App() {
   const [questions, setQuestions] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [errorType, setErrorType] = useState(null) // Add error type
   const [currentStep, setCurrentStep] = useState('form') // 'form', 'questions', 'stats'
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
   
@@ -144,6 +145,7 @@ function App() {
   const handleGenerateFlashcards = async (formData) => {
     setIsLoading(true)
     setError(null)
+    setErrorType(null)
     
     try {
       const questions = await generateFlashcards(formData)
@@ -160,7 +162,16 @@ function App() {
       setCurrentCardIndex(0) // Reset to first card
       setGameStats([]) // Clear previous stats
     } catch (error) {
-      setError(error.message || 'An error occurred while generating flashcards.')
+      if (error.type === 'token_limit_exceeded') {
+        setError('Your input is too large. Please reduce the topic length or use fewer flashcards to stay within token limits.')
+        setErrorType('token_limit_exceeded')
+      } else if (error.type === 'rate_limit') {
+        setError('Rate limit exceeded. Please wait a moment and try again.')
+        setErrorType('rate_limit')
+      } else {
+        setError(error.message || 'An error occurred while generating flashcards.')
+        setErrorType('general')
+      }
     } finally {
       setIsLoading(false)
     }
@@ -170,7 +181,16 @@ function App() {
     try {
       return await evaluateAnswer(question, answer)
     } catch (error) {
-      setError(error.message || 'An error occurred while evaluating your answer.')
+      if (error.type === 'token_limit_exceeded') {
+        setError('Your answer is too long. Please shorten it to stay within token limits.')
+        setErrorType('token_limit_exceeded')
+      } else if (error.type === 'rate_limit') {
+        setError('Rate limit exceeded. Please wait a moment and try again.')
+        setErrorType('rate_limit')
+      } else {
+        setError(error.message || 'An error occurred while evaluating your answer.')
+        setErrorType('general')
+      }
       throw error
     }
   };
@@ -202,6 +222,7 @@ function App() {
     setQuestions([])
     setCurrentStep('form')
     setError(null)
+    setErrorType(null)
     setCurrentCardIndex(0)
     setGameStats([])
   };
@@ -218,6 +239,11 @@ function App() {
     }
   };
 
+  const clearError = () => {
+    setError(null)
+    setErrorType(null)
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-base-100 bg-gradient-to-br from-base-100 via-base-100 to-neutral/30">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none"></div>
@@ -228,7 +254,7 @@ function App() {
       <main className="container relative z-10 flex-grow px-4 py-10 mx-auto" style={{background: '#000000ad'}}>
         <h1 className="mb-10 text-4xl font-bold text-center text-white md:text-5xl">Learn with AI-Powered Flashcards</h1>
         
-        {error && <ErrorAlert message={error} onDismiss={() => setError(null)} />}
+        {error && <ErrorAlert message={error} onDismiss={clearError} type={errorType} />}
         
         {currentStep === 'form' && (
           <>

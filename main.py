@@ -4,6 +4,25 @@ from google import genai
 from dotenv import dotenv_values
 
 env = dotenv_values('.env')
+GENAI_MODEL = "gemini-2.0-flash"
+
+client = genai.Client(api_key=env.get('GEMINI_API_KEY'))
+token_count = client.models.count_tokens(model=GENAI_MODEL, contents=f'''You are an expert tutor.
+The user wants to study the topic: "Python" at a advanced level.
+
+Generate a list of [3] flashcards, with a list of questions
+
+Only give me the questions and nothing else.
+Format it as JSON like this:
+[
+"What is a web framework?",
+"What is CSS for"
+]''')
+
+# token_count = model.count_tokens()
+print("Total tokens:", token_count.total_tokens)
+
+exit()
 
 try:
     client = genai.Client(api_key=env.get('GEMINI_API_KEY'))
@@ -34,7 +53,7 @@ Format it as JSON like this:
 ]'''
     try:
         print("[DEBUG] Sending flashcard generation prompt to Gemini API...")
-        resp = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+        resp = client.models.generate_content(model=GENAI_MODEL, contents=prompt)
         print("[DEBUG] Received response from Gemini API.")
         return resp.text
     except Exception as e:
@@ -68,7 +87,7 @@ Only give me the JSON data and nothing else, return it in the following structur
 {{"rating": 0, "feedback": "The answer ..."}}'''
     try:
         print(f"[DEBUG] Evaluating answer for question: {question}")
-        resp = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+        resp = client.models.generate_content(model=GENAI_MODEL, contents=prompt)
         result = extract_json(resp.text)
         print(f"Rating: {result['rating']}\nFeedback: {result['feedback']}\n")
     except Exception as e:

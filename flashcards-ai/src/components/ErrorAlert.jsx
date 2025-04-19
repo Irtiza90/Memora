@@ -1,14 +1,40 @@
-const ErrorAlert = ({ message, onDismiss }) => {
+const ErrorAlert = ({ message, onDismiss, type = 'general' }) => {
   if (!message) return null;
   
+  // Determine alert style based on error type
+  let alertClass = 'max-w-2xl mx-auto mb-8 border shadow-lg alert bg-error/20 text-error-content border-error/30 rounded-xl fade-in';
+  let title = 'Error';
+  let icon = (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 stroke-current shrink-0" fill="none" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  );
+  
+  // Customize based on error type
+  if (type === 'token_limit_exceeded') {
+    alertClass = 'max-w-2xl mx-auto mb-8 border shadow-lg alert bg-warning/20 text-warning-content border-warning/30 rounded-xl fade-in';
+    title = 'Token Limit Exceeded';
+    icon = (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 stroke-current shrink-0" fill="none" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    );
+  } else if (type === 'rate_limit') {
+    alertClass = 'max-w-2xl mx-auto mb-8 border shadow-lg alert bg-info/20 text-info-content border-info/30 rounded-xl fade-in';
+    title = 'Rate Limit';
+    icon = (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 stroke-current shrink-0" fill="none" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    );
+  }
+  
   return (
-    <div className="max-w-2xl mx-auto mb-8 border shadow-lg alert alert-error bg-error/20 text-error-content border-error/30 rounded-xl fade-in">
+    <div className={alertClass}>
       <div className="flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 stroke-current shrink-0" fill="none" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        {icon}
         <div className="ml-2">
-          <h3 className="text-lg font-bold">Error</h3>
+          <h3 className="text-lg font-bold">{title}</h3>
           <div className="text-sm opacity-90">{message}</div>
         </div>
       </div>

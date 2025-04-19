@@ -52,7 +52,7 @@ const FlashcardForm = ({ onGenerate, isLoading }) => {
           </label>
           <input
             type="range"
-            min="3"
+            min="2"
             max="20"
             value={count}
             onChange={(e) => setCount(parseInt(e.target.value))}
