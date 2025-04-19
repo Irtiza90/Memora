@@ -261,7 +261,7 @@ function App() {
       
       <Navbar onHomeClick={handleHomeClick} />
       
-      <main className="container relative z-10 flex-grow px-4 py-10 mx-auto" style={{background: '#000000ad'}}>
+      <main className="relative z-10 flex-grow w-full px-4 py-10 mx-auto" style={{background: '#000000ad'}}>
         <h1 className="mb-10 text-4xl font-bold text-center text-white md:text-5xl">Memora - Remember Everything</h1>
         
         {error && <ErrorAlert message={error} onDismiss={clearError} type={errorType} />}
