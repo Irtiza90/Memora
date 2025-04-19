@@ -10,16 +10,16 @@ const SavedGamesList = ({ savedGames, onLoadGame, onDeleteGame }) => {
   
   if (!savedGames || savedGames.length === 0) {
     return (
-      <div className="alert bg-base-200/50 mb-6">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <div className="mb-6 alert bg-base-200/50">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-6 h-6 stroke-info shrink-0"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <span className="text-white">No saved decks found. Complete a session to save it for later!</span>
       </div>
     );
   }
   
   return (
-    <div className="mb-8">
-      <h3 className="text-xl font-bold text-white mb-4">Your Saved Decks</h3>
+    <div className="px-8 mb-8">
+      <h3 className="mb-4 text-xl font-bold text-white">Your Saved Decks</h3>
       
       <div className="space-y-4">
         {savedGames.map((game, index) => (
@@ -30,7 +30,7 @@ const SavedGamesList = ({ savedGames, onLoadGame, onDeleteGame }) => {
               onChange={() => toggleGame(index)}
               aria-label={`Toggle ${game.name}`}
             />
-            <div className="collapse-title text-white font-medium flex items-center justify-between pr-12">
+            <div className="flex items-center justify-between pr-12 font-medium text-white collapse-title">
               <div>
                 <span className="font-bold">{game.name}</span>
                 <div className="text-sm opacity-70">
@@ -41,8 +41,8 @@ const SavedGamesList = ({ savedGames, onLoadGame, onDeleteGame }) => {
             </div>
             <div className="collapse-content">
               <div className="pt-2">
-                <p className="text-white mb-3">Topic: <span className="font-semibold">{game.topic}</span></p>
-                <div className="flex gap-2 flex-wrap mt-4">
+                <p className="mb-3 text-white">Topic: <span className="font-semibold">{game.topic}</span></p>
+                <div className="flex flex-wrap gap-2 mt-4">
                   <button 
                     onClick={() => onLoadGame(game)} 
                     className="btn btn-primary btn-sm btn-glow"
@@ -65,16 +65,16 @@ const SavedGamesList = ({ savedGames, onLoadGame, onDeleteGame }) => {
                 
                 {game.progress && game.progress.stats && game.progress.stats.length > 0 && (
                   <div className="mt-4">
-                    <div className="text-white text-sm font-semibold mb-2">Previous Performance:</div>
-                    <div className="stats stats-horizontal shadow bg-base-300/50 text-white">
+                    <div className="mb-2 text-sm font-semibold text-white">Previous Performance:</div>
+                    <div className="text-white shadow stats stats-horizontal bg-base-300/50">
                       <div className="stat">
                         <div className="stat-title text-white/70">Score</div>
-                        <div className="stat-value text-lg">{(game.progress.stats.reduce((acc, stat) => acc + (stat.rating || 0), 0) / game.progress.stats.length || 0).toFixed(1)}</div>
+                        <div className="text-lg stat-value">{(game.progress.stats.reduce((acc, stat) => acc + (stat.rating || 0), 0) / game.progress.stats.length || 0).toFixed(1)}</div>
                         <div className="stat-desc text-white/60">Average Rating</div>
                       </div>
                       <div className="stat">
                         <div className="stat-title text-white/70">Completion</div>
-                        <div className="stat-value text-lg">{Math.round((game.progress.stats.length / game.questions.length) * 100)}%</div>
+                        <div className="text-lg stat-value">{Math.round((game.progress.stats.length / game.questions.length) * 100)}%</div>
                         <div className="stat-desc text-white/60">Cards Answered</div>
                       </div>
                     </div>

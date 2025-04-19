@@ -262,7 +262,7 @@ function App() {
       <Navbar onHomeClick={handleHomeClick} />
       
       <main className="container relative z-10 flex-grow px-4 py-10 mx-auto" style={{background: '#000000ad'}}>
-        <h1 className="mb-10 text-4xl font-bold text-center text-white md:text-5xl">Learn with AI-Powered Flashcards</h1>
+        <h1 className="mb-10 text-4xl font-bold text-center text-white md:text-5xl">Memora - Remember Everything</h1>
         
         {error && <ErrorAlert message={error} onDismiss={clearError} type={errorType} />}
         
@@ -377,7 +377,7 @@ function App() {
       
       <footer className="relative z-10 p-6 border-t footer footer-center bg-base-300/50 backdrop-blur-sm text-base-content border-primary/10">
         <div>
-          <p className="font-medium">© 2025 - FlashcardsAI - Learn smarter with AI</p>
+          <p className="font-medium">© 2025 - Memora - Remember With AI</p>
         </div>
       </footer>
     </div>
