@@ -101,7 +101,7 @@ const GameStats = ({ stats, onRestart, onNewGame, onSaveGame }) => {
               value={gameName}
               onChange={(e) => setGameName(e.target.value)}
               placeholder="Enter a name for this deck"
-              className="flex-1 h-10 py-4 text-sm text-white rounded-lg md:py-2 md:h-12 md:text-base bg-base-200/50 input input-bordered input-glow border-primary/30 focus:border-primary"
+              className="flex-1 h-10 py-4 text-sm text-white rounded-lg md:py-4 md:h-12 md:text-base bg-base-200/50 input input-bordered input-glow border-primary/30 focus:border-primary"
             />
             <button 
               onClick={handleSaveGame}
