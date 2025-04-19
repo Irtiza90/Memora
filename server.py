@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
-from api import GeminiAPI, GeminiAPIError, GeminiRateLimitError, GeminiTokenLimitError
+from flask_cors import CORS
 from typing import Dict, List
 import json
 import logging
 import time
+
+from api import GeminiAPI, GeminiAPIError, GeminiRateLimitError, GeminiTokenLimitError
 
 # Configure logging
 logging.basicConfig(
@@ -17,6 +19,7 @@ logging.basicConfig(
 logger = logging.getLogger('FlashcardServer')
 
 app = Flask(__name__)
+CORS(app, origins=["https://irtiza90.github.io", "http://localhost:*"])
 api = GeminiAPI()
 
 @app.before_request
