@@ -80,19 +80,8 @@ function App() {
     }
   }, [questions, currentCardIndex, gameStats, gameDetails, currentStep]);
   
-  // Check if all cards have been answered
-  useEffect(() => {
-    if (
-      questions.length > 0 && 
-      gameStats.length > 0 && 
-      gameStats.length >= questions.length && 
-      currentStep === 'questions'
-    ) {
-      setCurrentStep('stats');
-      // Clear current game when completed
-      localStorage.removeItem(STORAGE_KEYS.CURRENT_GAME);
-    }
-  }, [questions, gameStats, currentStep]);
+  // Removed automatic transition to stats screen
+  // Now will only go to stats when user clicks Next on last card
   
   const loadSavedGames = () => {
     try {
@@ -208,8 +197,6 @@ function App() {
         return [...prevStats, result];
       }
     });
-    
-    // Removed automatic advancement to next card
   };
 
   const handleRestart = () => {
@@ -228,8 +215,17 @@ function App() {
   };
 
   const goToNextCard = () => {
-    if (currentCardIndex < questions.length - 1) {
-      setCurrentCardIndex(currentCardIndex + 1)
+    const isLastCard = currentCardIndex === questions.length - 1;
+    const allCardsAnswered = gameStats.length >= questions.length;
+
+    if (isLastCard && allCardsAnswered) {
+      // If on the last card and all cards have been answered, go to stats
+      setCurrentStep('stats');
+      // Clear current game when completed
+      localStorage.removeItem(STORAGE_KEYS.CURRENT_GAME);
+    } else if (!isLastCard) {
+      // Otherwise go to the next card if not already on the last one
+      setCurrentCardIndex(currentCardIndex + 1);
     }
   };
 
@@ -243,6 +239,12 @@ function App() {
     setError(null)
     setErrorType(null)
   }
+
+  // Check if the current card has been answered
+  const isCurrentCardAnswered = () => {
+    if (!questions.length) return false;
+    return gameStats.some(stat => stat.question === questions[currentCardIndex]);
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-base-100 bg-gradient-to-br from-base-100 via-base-100 to-neutral/30">
@@ -335,9 +337,9 @@ function App() {
                   <button 
                     onClick={goToNextCard}
                     className="px-4 rounded-lg btn btn-primary btn-glow"
-                    disabled={currentCardIndex === questions.length - 1}
+                    disabled={currentCardIndex === questions.length - 1 && !isCurrentCardAnswered()}
                   >
-                    Next
+                    {currentCardIndex === questions.length - 1 && isCurrentCardAnswered() ? 'View Results' : 'Next'}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
