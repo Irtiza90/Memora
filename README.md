@@ -12,8 +12,8 @@ The project consists of two main components:
 
 ## Prerequisites
 
-- Python 3.9+ for the backend
-- Node.js 16+ and npm for the frontend
+- Python 3.10+ for the backend
+- Node.js 20+ and npm for the frontend
 - Google Cloud API key with access to Gemini API
 - Git
 
@@ -30,8 +30,10 @@ cd <repository-directory>
 
 ```bash
 # Windows
-python -m venv venv
-venv\Scripts\activate
+python -m venv .venv
+.venv\Scripts\activate
+OR:
+.venv\Scripts\activate.ps1
 
 # macOS/Linux
 python3 -m venv venv
@@ -44,13 +46,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-If requirements.txt doesn't exist, install the following packages:
-
-```bash
-pip install flask flask-cors python-dotenv google-generativeai waitress
-pip freeze > requirements.txt
-```
-
 ### Environment Variables
 
 Create a `.env` file in the project root:
@@ -59,8 +54,6 @@ Create a `.env` file in the project root:
 FLASK_ENV=development
 FLASK_APP=server.py
 GOOGLE_API_KEY=your_google_api_key_here
-CORS_ORIGIN=http://localhost:5173
-PORT=5000
 ```
 
 ### Running the Backend Server
@@ -71,7 +64,10 @@ PORT=5000
 # With Flask development server
 flask run --debug
 
-# Alternative
+# Alternative (Windows)
+py server.py
+
+# Linux/MacOS
 python server.py
 ```
 
@@ -243,23 +239,4 @@ tail -f api.log  # Live monitoring
 
 ### Performance Issues
 
-- **Slow Typing Animation**: Adjust the speed parameter in the TypingAnimation component
 - **Server Response Time**: For large flashcard sets, the API may take longer to generate content
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature-name`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature/your-feature-name`
-5. Open a pull request
-
-## License
-
-[MIT License](LICENSE)
-
-## Acknowledgements
-
-- This project uses the Google Gemini API for AI-powered content generation
-- UI components built with React, TailwindCSS, and DaisyUI
-- Markdown rendering with react-markdown and remark-gfm
