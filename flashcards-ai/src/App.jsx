@@ -222,18 +222,64 @@ function App() {
     handleNewGame(); // Reuse the new game logic to reset everything
   };
 
+  // Count answered questions more accurately
+  const getCompletedQuestionCount = () => {
+    if (!questions.length) return 0;
+    
+    // Count how many questions have been answered
+    return questions.filter(question => 
+      gameStats.some(stat => stat.question === question)
+    ).length;
+  };
+
+  // Check if all cards have been answered
+  const areAllCardsAnswered = () => {
+    if (!questions.length) return false;
+    console.log(`Answered: ${getCompletedQuestionCount()}, Total: ${questions.length}`);
+    return getCompletedQuestionCount() >= questions.length;
+  };
+
+  // Check if the current card has been answered
+  const isCurrentCardAnswered = () => {
+    if (!questions.length) return false;
+    const answered = gameStats.some(stat => stat.question === questions[currentCardIndex]);
+    console.log(`Current card ${currentCardIndex + 1} answered: ${answered}`);
+    return answered;
+  };
+
   const goToNextCard = () => {
     const isLastCard = currentCardIndex === questions.length - 1;
-    const allCardsAnswered = gameStats.length >= questions.length;
-
-    if (isLastCard && allCardsAnswered) {
-      // If on the last card and all cards have been answered, go to stats
-      setCurrentStep('stats');
-      // Clear current game when completed
-      localStorage.removeItem(STORAGE_KEYS.CURRENT_GAME);
-    } else if (!isLastCard) {
-      // Otherwise go to the next card if not already on the last one
+    
+    // For normal cards, just go to the next one
+    if (!isLastCard) {
       setCurrentCardIndex(currentCardIndex + 1);
+    }
+    // For the last card, we'll use goToStatsScreen if needed, which is handled in the button's onClick
+  };
+
+  const goToStatsScreen = () => {
+    console.log("Going to stats screen directly");
+    // Double check if all cards have been answered
+    const completedCount = getCompletedQuestionCount();
+    console.log(`Before going to stats: ${completedCount}/${questions.length} completed`);
+    
+    // If the last question was just answered, we need to wait a bit for state to update
+    if (completedCount < questions.length) {
+      console.log("Not all questions are answered yet, waiting...");
+      // Wait a short time for state to update before checking again
+      setTimeout(() => {
+        const updatedCount = getCompletedQuestionCount();
+        console.log(`After waiting: ${updatedCount}/${questions.length} completed`);
+        if (updatedCount >= questions.length) {
+          console.log("All questions now answered, showing stats");
+          setCurrentStep('stats');
+          localStorage.removeItem(STORAGE_KEYS.CURRENT_GAME);
+        }
+      }, 300);
+    } else {
+      // All questions are already answered
+      setCurrentStep('stats');
+      localStorage.removeItem(STORAGE_KEYS.CURRENT_GAME);
     }
   };
 
@@ -247,12 +293,6 @@ function App() {
     setError(null)
     setErrorType(null)
   }
-
-  // Check if the current card has been answered
-  const isCurrentCardAnswered = () => {
-    if (!questions.length) return false;
-    return gameStats.some(stat => stat.question === questions[currentCardIndex]);
-  };
 
   return (
     <div className="flex flex-col min-h-screen bg-base-100 bg-gradient-to-br from-base-100 via-base-100 to-neutral/30">
@@ -306,7 +346,7 @@ function App() {
                     <div className="text-sm opacity-70">Topic: <span className="font-semibold">{gameDetails.topic}</span></div>
                     <div className="text-sm opacity-70">Level: <span className="font-semibold">{gameDetails.level}</span></div>
                   </div>
-                  <div className="badge badge-lg badge-primary">{gameStats.length}/{questions.length} Completed</div>
+                  <div className="badge badge-lg badge-primary">{getCompletedQuestionCount()}/{questions.length} Completed</div>
                 </div>
                 
                 {/* Flashcard Progress Indicator */}
@@ -343,7 +383,7 @@ function App() {
                     Previous
                   </button>
                   <button 
-                    onClick={goToNextCard}
+                    onClick={currentCardIndex === questions.length - 1 && isCurrentCardAnswered() ? goToStatsScreen : goToNextCard}
                     className="px-4 rounded-lg btn btn-primary btn-glow"
                     disabled={currentCardIndex === questions.length - 1 && !isCurrentCardAnswered()}
                   >

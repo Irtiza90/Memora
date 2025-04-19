@@ -1,34 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-const TypingAnimation = ({ text, speed = 10, onComplete }) => {
+const TypingAnimation = ({ text, speed = 2, onComplete }) => {
   const [displayedText, setDisplayedText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isComplete, setIsComplete] = useState(false);
+  const timerRef = useRef(null);
+  const chunkSize = 5; // Process multiple characters at once for better performance
 
   useEffect(() => {
     // Reset when text changes
     setDisplayedText('');
-    setCurrentIndex(0);
-    setIsComplete(false);
-  }, [text]);
-
-  useEffect(() => {
-    if (!text || currentIndex >= text.length) {
-      if (currentIndex > 0 && !isComplete) {
-        setIsComplete(true);
-        onComplete && onComplete();
-      }
+    if (timerRef.current) clearTimeout(timerRef.current);
+    
+    if (!text) {
+      onComplete && onComplete();
       return;
     }
+    
+    let currentIndex = 0;
+    
+    const animateText = () => {
+      if (currentIndex >= text.length) {
+        onComplete && onComplete();
+        return;
+      }
+      
+      // Process multiple characters at once for better performance
+      const nextChunk = Math.min(currentIndex + chunkSize, text.length);
+      const newText = text.substring(0, nextChunk);
+      setDisplayedText(newText);
+      currentIndex = nextChunk;
+      
+      timerRef.current = setTimeout(animateText, speed);
+    };
+    
+    animateText();
+    
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [text, speed, onComplete]);
 
-    const timer = setTimeout(() => {
-      setDisplayedText((prev) => prev + text[currentIndex]);
-      setCurrentIndex((prev) => prev + 1);
-    }, speed);
-
-    return () => clearTimeout(timer);
-  }, [currentIndex, text, speed, isComplete, onComplete]);
-
+  // If no text provided, return empty span
+  if (!text) return <span></span>;
+  
   return <span>{displayedText}</span>;
 };
 

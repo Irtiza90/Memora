@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import TypingAnimation from './TypingAnimation';
 
 const FlashcardCard = ({ question, onAnswer, onComplete }) => {
@@ -8,9 +8,11 @@ const FlashcardCard = ({ question, onAnswer, onComplete }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   
-  // Notify parent component when answer is evaluated
+  // Notify parent component when answer is evaluated - optimized to run only once
   useEffect(() => {
-    if (feedback && isTypingComplete) {
+    if (feedback && !isLoading) {
+      console.log("Feedback received, notifying parent component");
+      // Don't wait for typing animation to complete before recording the answer
       onComplete && onComplete({ 
         question, 
         answer, 
@@ -18,7 +20,7 @@ const FlashcardCard = ({ question, onAnswer, onComplete }) => {
         feedback: feedback.feedback 
       });
     }
-  }, [feedback, isTypingComplete, question, answer, onComplete]);
+  }, [feedback]); // Only depend on feedback changing
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,23 +45,28 @@ const FlashcardCard = ({ question, onAnswer, onComplete }) => {
     setIsTypingComplete(false);
   };
   
-  const getRatingColor = (rating) => {
+  // Memoize rating functions to prevent recreating on every render
+  const getRatingColor = useCallback((rating) => {
     if (rating >= 4) return 'text-success font-bold';
     if (rating >= 2.5) return 'text-warning font-bold';
     return 'text-error font-bold';
-  };
+  }, []);
 
-  const getRatingBg = (rating) => {
+  const getRatingBg = useCallback((rating) => {
     if (rating >= 4) return 'bg-success/20';
     if (rating >= 2.5) return 'bg-warning/20';
     return 'bg-error/20';
-  };
+  }, []);
 
-  const getRatingEmoji = (rating) => {
+  const getRatingEmoji = useCallback((rating) => {
     if (rating >= 4) return '🌟';
     if (rating >= 2.5) return '👍';
     return '🔄';
-  };
+  }, []);
+
+  const handleTypingComplete = useCallback(() => {
+    setIsTypingComplete(true);
+  }, []);
   
   return (
     <div className="w-full overflow-hidden shadow-xl glass-card border-opacity-20 border-primary/20 rounded-2xl fade-in">
@@ -113,8 +120,8 @@ const FlashcardCard = ({ question, onAnswer, onComplete }) => {
                   {!isTypingComplete ? (
                     <TypingAnimation 
                       text={feedback.feedback} 
-                      speed={2} 
-                      onComplete={() => setIsTypingComplete(true)}
+                      speed={10} 
+                      onComplete={handleTypingComplete}
                     />
                   ) : (
                     feedback.feedback
