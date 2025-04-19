@@ -6,7 +6,7 @@ import ErrorAlert from './components/ErrorAlert'
 import Loading from './components/Loading'
 import GameStats from './components/GameStats'
 import SavedGamesList from './components/SavedGamesList'
-import { generateFlashcards, evaluateAnswer } from './services/api'
+import { generateFlashcards, evaluateAnswer, API_URL } from './services/api'
 import './App.css'
 
 // LocalStorage keys
@@ -34,6 +34,25 @@ function App() {
   // Game progress
   const [gameStats, setGameStats] = useState([])
   const [savedGames, setSavedGames] = useState([])
+
+  // Send a wake-up request to the server as soon as the app loads
+  useEffect(() => {
+    const wakeUpServer = async () => {
+      try {
+        console.log("Sending wake-up request to server...");
+        await fetch(`${API_URL}`, { 
+          method: 'GET',
+        });
+      } catch (error) {
+        console.log("Server wake-up request failed, it may still be starting up:", error.message);
+        
+        // Try again after 10 seconds if the server doesn't respond
+        setTimeout(wakeUpServer, 10000);
+      }
+    };
+
+    wakeUpServer();
+  }, []);
 
   useEffect(() => {
     // Set the default theme on initial load
@@ -233,7 +252,7 @@ function App() {
   };
 
   // Check if all cards have been answered
-  const areAllCardsAnswered = () => {
+  const _areAllCardsAnswered = () => {
     if (!questions.length) return false;
     console.log(`Answered: ${getCompletedQuestionCount()}, Total: ${questions.length}`);
     return getCompletedQuestionCount() >= questions.length;
