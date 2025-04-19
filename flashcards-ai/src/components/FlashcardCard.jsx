@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import TypingAnimation from './TypingAnimation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const FlashcardCard = ({ question, onAnswer, onComplete }) => {
   const [answer, setAnswer] = useState('');
@@ -116,7 +118,7 @@ const FlashcardCard = ({ question, onAnswer, onComplete }) => {
                     </span>
                   </div>
                 </div>
-                <div className="leading-relaxed text-white">
+                <div className="leading-relaxed text-white markdown-content">
                   {!isTypingComplete ? (
                     <TypingAnimation 
                       text={feedback.feedback} 
@@ -124,7 +126,26 @@ const FlashcardCard = ({ question, onAnswer, onComplete }) => {
                       onComplete={handleTypingComplete}
                     />
                   ) : (
-                    feedback.feedback
+                    <ReactMarkdown 
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        // Styling for markdown components
+                        h1: ({...props}) => <h1 className="mt-4 mb-2 text-xl font-bold" {...props} />,
+                        h2: ({...props}) => <h2 className="mt-3 mb-2 text-lg font-bold" {...props} />,
+                        h3: ({...props}) => <h3 className="mt-3 mb-1 font-bold text-md" {...props} />,
+                        p: ({...props}) => <p className="mb-2" {...props} />,
+                        ul: ({...props}) => <ul className="mb-2 ml-5 list-disc" {...props} />,
+                        ol: ({...props}) => <ol className="mb-2 ml-5 list-decimal" {...props} />,
+                        li: ({...props}) => <li className="mb-1" {...props} />,
+                        code: ({inline, ...props}) => 
+                          inline 
+                            ? <code className="px-1 py-0.5 bg-base-300 rounded text-sm" {...props} />
+                            : <code className="block p-2 my-2 overflow-x-auto text-sm rounded bg-base-300" {...props} />,
+                        a: ({...props}) => <a className="underline text-primary" {...props} />
+                      }}
+                    >
+                      {feedback.feedback}
+                    </ReactMarkdown>
                   )}
                 </div>
               </div>
