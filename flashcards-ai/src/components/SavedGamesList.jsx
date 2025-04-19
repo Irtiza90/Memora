@@ -3,6 +3,11 @@ import { useState } from 'react';
 const SavedGamesList = ({ savedGames, onLoadGame, onDeleteGame }) => {
   const [expandedGame, setExpandedGame] = useState(null);
   
+  const toggleGame = (index) => {
+    // If the current game is expanded, close it, otherwise expand it
+    setExpandedGame(expandedGame === index ? null : index);
+  };
+  
   if (!savedGames || savedGames.length === 0) {
     return (
       <div className="alert bg-base-200/50 mb-6">
@@ -20,10 +25,10 @@ const SavedGamesList = ({ savedGames, onLoadGame, onDeleteGame }) => {
         {savedGames.map((game, index) => (
           <div key={index} className="collapse collapse-arrow bg-base-200/50 rounded-xl">
             <input 
-              type="radio" 
-              name="saved-games-accordion"
+              type="checkbox" 
               checked={expandedGame === index}
-              onChange={() => setExpandedGame(expandedGame === index ? null : index)}
+              onChange={() => toggleGame(index)}
+              aria-label={`Toggle ${game.name}`}
             />
             <div className="collapse-title text-white font-medium flex items-center justify-between pr-12">
               <div>
