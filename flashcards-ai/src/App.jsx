@@ -212,6 +212,14 @@ function App() {
     setErrorType(null)
     setCurrentCardIndex(0)
     setGameStats([])
+    
+    // Clear current game when going back to form
+    localStorage.removeItem(STORAGE_KEYS.CURRENT_GAME);
+  };
+  
+  // Handle navigation to home/form page from anywhere in the app
+  const handleHomeClick = () => {
+    handleNewGame(); // Reuse the new game logic to reset everything
   };
 
   const goToNextCard = () => {
@@ -251,7 +259,7 @@ function App() {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none"></div>
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-secondary/10 via-transparent to-transparent pointer-events-none"></div>
       
-      <Navbar />
+      <Navbar onHomeClick={handleHomeClick} />
       
       <main className="container relative z-10 flex-grow px-4 py-10 mx-auto" style={{background: '#000000ad'}}>
         <h1 className="mb-10 text-4xl font-bold text-center text-white md:text-5xl">Learn with AI-Powered Flashcards</h1>
