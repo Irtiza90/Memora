@@ -423,7 +423,7 @@ function App() {
         
         {/* End Game Stats Screen */}
         {currentStep === 'stats' && (
-          <div className="max-w-4xl mx-auto fade-in">
+          <div className="w-full max-w-4xl px-2 mx-auto md:px-4 fade-in">
             <GameStats 
               stats={gameStats} 
               onRestart={handleRestart}
