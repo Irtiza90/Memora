@@ -19,7 +19,12 @@ logging.basicConfig(
 logger = logging.getLogger('FlashcardServer')
 
 app = Flask(__name__)
-CORS(app, origins=["https://irtiza90.github.io", "http://localhost:*"], supports_credentials=True, methods=["GET", "POST", "OPTIONS"])
+CORS(
+    app,
+    supports_credentials=True,
+    methods=["GET", "POST", "OPTIONS"],
+)
+
 api = GeminiAPI()
 
 @app.before_request
@@ -126,6 +131,6 @@ def evaluate_answer():
         }), 500
 
 if __name__ == '__main__':
-    logger.info("Starting Flashcard Server")
+    logger.info("Starting Server...")
     app.run(debug=True)
 
